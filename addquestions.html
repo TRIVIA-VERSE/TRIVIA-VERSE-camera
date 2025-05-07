@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Questions</title>
+    <link rel="stylesheet" href="addquestions.css">
+</head>
+<body>
+    <div class="arcade-background"></div>
+    <div class="content">
+        <h1 class="logo">Add Questions</h1>
+
+        <div id="question-form">
+            <label for="subject">Select Subject:</label>
+            <select id="subject">
+                <option value="English">English</option>
+                <option value="Science">Science</option>
+                <option value="Math">Math</option>
+            </select>
+
+            <input type="text" id="question-input" placeholder="Enter a question">
+            
+
+            <!-- Answer Inputs -->
+            <div class="answer-options">
+                <input type="text" id="option-a" placeholder="Option A">
+                <input type="text" id="option-b" placeholder="Option B">
+                <input type="text" id="option-c" placeholder="Option C">
+                <input type="text" id="option-d" placeholder="Option D">
+            </div>
+
+            <!-- Correct Answer Selection -->
+            <label for="correct-answer">Correct Answer:</label>
+            <select id="correct-answer">
+                <option value="0">A</option>
+                <option value="1">B</option>
+                <option value="2">C</option>
+                <option value="3">D</option>
+            </select>
+
+            <button id="add-question">Add Question</button>
+        </div>
+
+        <ul id="question-list"></ul>
+
+        <button class="small-button" onclick="window.location.href='index.html'">Back</button>
+    </div>
+
+    <script src="addquestions.js"></script>
+</body>
+</html>

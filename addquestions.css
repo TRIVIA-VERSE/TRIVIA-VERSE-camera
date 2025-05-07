@@ -1,0 +1,199 @@
+/* General Reset */
+body, h1, div, span, button, a, input, select, textarea {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Background Animation */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 50%, transparent 50%) center / 5px 5px,
+              linear-gradient(rgba(0, 0, 0, 0.8) 50%, transparent 50%) center / 5px 5px,
+              radial-gradient(circle, #ff00ff, #0000ff, #000000);
+  animation: moveGrid 4s linear infinite;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Grid Animation */
+@keyframes moveGrid {
+  0% {
+      background-position: 0 0;
+  }
+  100% {
+      background-position: 100% 100%;
+  }
+}
+
+/* Main Container */
+.content {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 600px;
+  margin-top: 30px;
+}
+
+/* Title */
+.logo {
+  font-size: 40px;
+  text-transform: uppercase;
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ae00ff;
+  margin-bottom: 20px;
+}
+
+/* Form Container */
+#question-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Input Fields */
+input, select {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border: 3px solid #ae00ff;
+  border-radius: 8px;
+  background: black;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 10px #ae00ff;
+}
+
+/* Answer Options */
+.answer-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  width: 100%;
+}
+
+.answer-options input {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Select Dropdown */
+#correct-answer {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Arcade-Inspired Buttons */
+button {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: black;
+    color: white;
+    border: 4px solid purple;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    box-shadow: 0 0 15px rgba(128, 0, 128, 0.8);
+    width: 100%;
+  }
+
+button:hover {
+  background: #ff6600;
+  transform: scale(1.1);
+}
+
+/* Question List (Scrollable) */
+#question-list {
+  list-style: none;
+  padding: 10px;
+  margin-top: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 2px solid #ae00ff;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar Styling */
+#question-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#question-list::-webkit-scrollbar-thumb {
+  background: #ae00ff;
+  border-radius: 10px;
+}
+
+#question-list li {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Delete Button */
+.delete-btn {
+  background: red;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background: darkred;
+}
+
+/* Back Button */
+.small-button {
+  font-size: 18px;
+  padding: 12px 20px;
+  margin-top: 20px;
+  width: 50%;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .content {
+    padding: 30px 25px;
+  }
+
+  .logo {
+    font-size: 30px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 10px 15px;
+  }
+
+  input, select {
+    font-size: 16px;
+    padding: 10px;
+  }
+}

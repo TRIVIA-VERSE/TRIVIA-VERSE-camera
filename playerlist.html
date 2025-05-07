@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arcade Leaderboard</title>
+  <style>
+    @font-face {
+      font-family: 'Comics';
+      src: url('Downloads/BADABB__.TTF');
+    }
+
+    body {
+      font-family: 'Comics', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .arcade-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 50%, transparent 50%) center / 5px 5px,
+                  linear-gradient(rgba(0, 0, 0, 0.8) 50%, transparent 50%) center / 5px 5px,
+                  radial-gradient(circle, #ff00ff, #0000ff, #000000);
+      animation: moveGrid 4s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes moveGrid {
+      0% { background-position: 0 0, 0 0, center; }
+      100% { background-position: 100px 100px, 100px 100px, center; }
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin: 40px 0 20px;
+      color: #00ff00;
+      text-shadow: 0 0 15px #00ff00, 0 0 25px #00ff00;
+    }
+
+    #player-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 30px;
+      gap: 40px;
+    }
+
+    .player-entry {
+      width: 300px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 4px solid #00ffff;
+      border-radius: 30px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px #00ffff;
+      transition: transform 0.3s ease;
+    }
+
+    .player-entry:hover {
+      transform: scale(1.05);
+    }
+
+    .player-entry img {
+      width: 100%;
+      height: auto;
+      border-radius: 25px;
+      border: 4px solid #ff0;
+      margin-bottom: 15px;
+      box-shadow: 0 0 15px #ff0;
+    }
+
+    .player-entry .score {
+      font-size: 28px;
+      color: #fff;
+      text-shadow: 0 0 5px #fff;
+    }
+
+    .button, .small-button {
+      font-family: 'Comics', sans-serif;
+      font-size: 25px;
+      cursor: pointer;
+      border-radius: 100px;
+      padding: 10px 25px;
+      background-color: #000;
+      color: #fff;
+      border: 3px solid #00ffff;
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      margin: 20px 10px;
+      text-decoration: none;
+      text-align: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .button:hover, .small-button:hover {
+      background-color: #00ffff;
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    #reset-btn {
+      background-color: #d9534f;
+      border-color: #d9534f;
+      box-shadow: 0 0 12px #ff0000;
+    }
+
+    #reset-btn:hover {
+      background-color: #c9302c;
+    }
+  </style>
+</head>
+<body>
+  <div class="arcade-background"></div>
+  <div class="content">
+    <h1>Arcade Leaderboard</h1>
+    <div id="player-list"></div>
+    <button id="reset-btn" class="button">Reset Leaderboard</button><br/>
+    <a href="index.html" class="small-button">Back to Quiz</a>
+  </div>
+
+  <script>
+    const playerList = JSON.parse(localStorage.getItem("playerList")) || [];
+    const playerListElement = document.getElementById("player-list");
+    const resetButton = document.getElementById("reset-btn");
+
+    function isValidName(name) {
+      if (!name) return false;
+      const cleaned = name.trim().toLowerCase();
+      return cleaned !== "" && cleaned !== "player" && !cleaned.startsWith("player ");
+    }
+
+    function displayPlayerList() {
+      playerListElement.innerHTML = "";
+
+      // Filter out invalid players
+      const validPlayers = playerList.filter(player => isValidName(player.name));
+
+      if (validPlayers.length === 0) {
+        playerListElement.innerHTML = "<p>No players have participated yet.</p>";
+        return;
+      }
+
+      validPlayers.sort((a, b) => b.score - a.score);
+
+      validPlayers.forEach((player, index) => {
+        const entryDiv = document.createElement("div");
+        entryDiv.className = "player-entry";
+
+        const img = document.createElement("img");
+        img.src = player.photo || "";
+        img.alt = `${player.name}`;
+
+        const scoreText = document.createElement("div");
+        scoreText.className = "score";
+        scoreText.textContent = `${player.name} - ${player.score}`;
+
+        entryDiv.appendChild(img);
+        entryDiv.appendChild(scoreText);
+        playerListElement.appendChild(entryDiv);
+      });
+    }
+
+    displayPlayerList();
+
+    resetButton.addEventListener("click", () => {
+      if (confirm("Are you sure you want to reset the leaderboard?")) {
+        localStorage.removeItem("playerList");
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>
